@@ -1,5 +1,5 @@
-package version2;
 
+@SuppressWarnings("unused")
 public class Name {
     private String firstName;
     private String middleName;
@@ -7,62 +7,53 @@ public class Name {
     private String suffix;
 
     public Name() {
-        this.firstName = "N/A";
-        this.middleName = "N/A";
-        this.lastName = "N/A";
-        this.suffix = "N/A";
+        this("N/A", "N/A", "N/A", "");
     }
+
     public Name(String firstName, String lastName) {
-        this.(firstName, "", lastName, "");
+        this(firstName, "N/A", lastName, "");
     }
+
     public Name(String firstName, String middleName, String lastName) {
         this(firstName, middleName, lastName, "");
     }
+
     public Name(String firstName, String middleName, String lastName, String suffix) {
         setFirstName(firstName);
         setMiddleName(middleName);
         setLastName(lastName);
         setSuffix(suffix);
     }
-    public String getFirstName() {
-        return firstName;
-    }
+
+    public String getFirstName() { return firstName; }
     public void setFirstName(String firstName) {
-        this.firstName = (firstName == null || firstName.trim().isEmpty()) ? "N/A" : firstName.trim();
+        this.firstName = (firstName == null || firstName.isBlank()) ? "N/A" : firstName;
     }
-    public String getMiddleName() {
-        return middleName;
+
+    public String getMiddleName() { return middleName; }
+    public void setMiddleName(String middleName) {
+        this.middleName = (middleName == null || middleName.isBlank()) ? "N/A" : middleName;
     }
-    public void setMiddleName(String middeName) {
-        this.middleName = (middeName == null) ? "" : middeName.trim();
-    }
-    public String getLastName() {
-        return lastName;
-    }
+
+    public String getLastName() { return lastName; }
     public void setLastName(String lastName) {
-        this.lastName = (lastName == null || lastName.trim().isEmpty()) ? "N/A" : lastName.trim();
+        this.lastName = (lastName == null || lastName.isBlank()) ? "N/A" : lastName;
     }
-    public String getSuffix() {
-        return suffix;
-    }
+
+    public String getSuffix() { return suffix; }
     public void setSuffix(String suffix) {
         this.suffix = (suffix == null) ? "" : suffix.trim();
     }
-    private String middleInitial() {
-        if (middleName == null || middleName.trim().isEmpty() || middleName.equalsIgnoreCase("N/A")) {
-            return "";
-        }
-        return middleName.substring(0, 1).toUpperCase() + ",";
-    }
+
     public void displayName() {
-        System.out.println(toString());
+        System.out.println(this);   // ✅ no unnecessary toString()
     }
+
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append(lastName).append(", ").append(firstName);
-
-        String mi = middleInitial();
-
+        String mi = middleName.equals("N/A") || middleName.isBlank()
+                ? "" : " " + middleName.charAt(0) + ".";
+        String suf = suffix.isEmpty() ? "" : " " + suffix;
+        return lastName + ", " + firstName + mi + suf;
     }
 }
