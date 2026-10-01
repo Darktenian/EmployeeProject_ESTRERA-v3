@@ -1,7 +1,7 @@
 
 
 import java.util.Objects;
-
+@SuppressWarnings("unused")
 public class PieceWorkerEmployee extends Employee {
     private int totalPiecesFinished;
     private double ratePerPiece;
